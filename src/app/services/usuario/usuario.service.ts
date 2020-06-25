@@ -19,6 +19,15 @@ export class UsuarioService {
     this.cargarStorage();
   }
 
+  renuevaToken(){
+    let url = URL_SERVICIOS+'/login/renuevatoken?token='+this.token;
+    return this.http.get(url).pipe(map( (resp: any) => {
+      this.token = resp.token;
+      localStorage.setItem('token', resp.token);
+      return true;
+    }));
+  }
+
   guardarStorage(id: string, token: string, usuario: Usuario, menu: any){
     localStorage.setItem('id', id);
       localStorage.setItem('token', token);
